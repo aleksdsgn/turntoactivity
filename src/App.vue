@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from 'vue';
-import TheHeader from './components/TheHeader.vue'
-import TheNav from './components/TheNav.vue'
+import TheHeader from './components/TheHeader.vue';
+import TheNav from './components/TheNav.vue';
 import { PAGE_TIMELINE, PAGE_ACTIVITIES, PAGE_PROGRESS } from './constants';
 import TheActivities from './pages/TheActivities.vue';
 import TheProgress from './pages/TheProgress.vue';
@@ -22,11 +22,18 @@ function normalizePageHash() {
   window.location.hash = PAGE_TIMELINE
 
   return PAGE_TIMELINE
-}
+};
+
+function goTo(page) {
+  currentPage.value = page
+};
 </script>
 
 <template>
-  <TheHeader />
+  <TheHeader
+    @go-to-timeline="goTo(PAGE_TIMELINE)"
+    @go-to-progress="goTo(PAGE_PROGRESS)"
+  />
 
   <main class="flex flex-grow flex-col">
     <TheTimeLine v-show="currentPage === PAGE_TIMELINE" />
@@ -34,5 +41,5 @@ function normalizePageHash() {
     <TheProgress v-show="currentPage === PAGE_PROGRESS" />
   </main>
 
-  <TheNav :current-page="currentPage" @navigate="currentPage = $event" />
+  <TheNav :current-page="currentPage" @navigate="goTo($event)" />
 </template>
