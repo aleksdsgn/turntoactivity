@@ -2,8 +2,18 @@
 import { XMarkIcon } from '@heroicons/vue/24/outline';
 import BaseButton from './BaseButton.vue';
 
-// декларируем те внешние свойства которые будет принимать компонент
-defineProps(['selected', 'options', 'placeholder']);
+// декларируем те внешние свойства которые будет принимать компонент, с указанием типа данных
+defineProps({
+  selected: Number,
+  options: {
+    required: true,
+    type: Array,
+  },
+  placeholder: {
+    required: true,
+    type: String,
+  },
+});
 </script>
 
 <template>

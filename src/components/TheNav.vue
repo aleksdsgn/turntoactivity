@@ -3,7 +3,12 @@ import { NAV_ITEMS } from '../constants';
 import NavItem from './NavItem.vue';
 
 // принимаем кастомные атрибуты
-defineProps(['currentPage']);
+defineProps({
+  currentPage: {
+    required: true,
+    type: String,
+  }
+});
 
 // отправка кастомных событий в родительский компонент
 const emit = defineEmits(['navigate']);
