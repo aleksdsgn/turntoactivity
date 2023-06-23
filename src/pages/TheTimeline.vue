@@ -1,9 +1,7 @@
 <script setup>
-import { generateTimeLineItems } from '../functions';
-import TimelineItem from '../components/TimelineItem.vue'
+import TimelineItem from '../components/TimelineItem.vue';
 
-// данные временной шкалы
-const timelineItems = generateTimeLineItems();
+defineProps(['timelineItems']);
 </script>
 
 <template>
