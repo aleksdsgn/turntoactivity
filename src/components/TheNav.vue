@@ -7,6 +7,11 @@ defineProps({
   currentPage: {
     required: true,
     type: String,
+    // название страницы во внешнем свойстве должно совпадать
+    // с одним из существующих страниц из NAV_ITEMS
+    validator(currentPage) {
+      return Object.keys(NAV_ITEMS).includes(currentPage)
+    }
   }
 });
 

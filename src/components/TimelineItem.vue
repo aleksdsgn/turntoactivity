@@ -1,10 +1,14 @@
 <script setup>
+import { HOURS_IN_DAY } from '../constants';
 import BaseSelect from './BaseSelect.vue';
 
 const props = defineProps({
   timelineItem: {
     required: true,
     type: Object,
+    validator({ hour}) {
+      return typeof hour === 'number' && hour >= 0 && hour < HOURS_IN_DAY
+    }
   }
 });
 
@@ -17,9 +21,9 @@ const hourLinkClasses = [
 
 // каждой активности свой идентификатор
 const options = [
-  { value: 1, label:'Coding' },
-  { value: 2, label:'Reading' },
-  { value: 3, label:'Training' },
+  { value: 1, label: 'Coding' },
+  { value: 2, label: 'Reading' },
+  { value: 3, label: 'Training' },
 ];
 
 // указываем извне какая именно опция селект элемента должна быть выбрана
