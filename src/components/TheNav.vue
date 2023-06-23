@@ -12,8 +12,9 @@ defineProps({
   }
 });
 
-// отправка кастомных событий в родительский компонент
-const emit = defineEmits(['navigate']);
+const emit = defineEmits({
+  navigate: isPageValid
+});
 </script>
 
 <template>
