@@ -1,4 +1,5 @@
 <script setup>
+import { ref } from 'vue';
 import { isTimelineItemValid } from '../validators';
 import BaseSelect from './BaseSelect.vue';
 
@@ -26,7 +27,7 @@ const options = [
 
 // указываем извне какая именно опция селект элемента должна быть выбрана
 // с его помощью можно будет выбрать активность для определенного часа
-const selectedActivityId = 3;
+const selectedActivityId = ref(1);
 </script>
 
 <template>
@@ -38,6 +39,11 @@ const selectedActivityId = 3;
       {{ timelineItem.hour }}:00
     </a>
     <!-- передаем опции в качестве внешнего свойства компоненту BaseSelect -->
-    <BaseSelect :selected="selectedActivityId" :options="options" placeholder="Rest" />
+    <BaseSelect
+      :selected="selectedActivityId"
+      :options="options"
+      placeholder="Rest"
+      @select="selectedActivityId = $event"
+    />
   </li>
 </template>
