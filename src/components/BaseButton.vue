@@ -1,5 +1,15 @@
-<script setup>
+<script>
 import { BUTTON_TYPE_DANGER, BUTTON_TYPE_NEUTRAL } from '../constants';
+
+const typeClasses = {
+  [BUTTON_TYPE_DANGER]: 'bg-red-500 enabled:hover:bg-red-600 text-white',
+  [BUTTON_TYPE_NEUTRAL]: 'bg-gray-100 enabled:hover:bg-gray-200',
+};
+
+console.log('base button');
+</script>
+
+<script setup>
 import { isButtonTypeValid } from '../validators';
 
 defineProps({
@@ -9,11 +19,6 @@ defineProps({
     validator: isButtonTypeValid,
   }
 });
-
-const typeClasses = {
-  [BUTTON_TYPE_DANGER]: 'bg-red-500 enabled:hover:bg-red-600 text-white',
-  [BUTTON_TYPE_NEUTRAL]: 'bg-gray-100 enabled:hover:bg-gray-200',
-};
 </script>
 
 <template>
