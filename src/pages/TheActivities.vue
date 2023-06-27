@@ -21,11 +21,11 @@ const emit = defineEmits({
 
 <template>
   <div class="flex flex-col grow">
-    <ul v-if="activities.length" class="divide-y grow">
+    <ul v-if="activities.length" class="grow divide-y">
       <ActivityItem
         v-for="activity
         in activities"
-        :key="activity"
+        :key="activity.id"
         :activity="activity"
         @delete="emit('deleteActivity', activity)"
       />

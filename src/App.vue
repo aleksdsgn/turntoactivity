@@ -2,8 +2,10 @@
 import { ref } from 'vue';
 import { PAGE_TIMELINE, PAGE_ACTIVITIES, PAGE_PROGRESS } from './constants';
 import {
+  id,
   normalizePageHash,
   generateTimeLineItems,
+  generateActivities,
   generateActivitySelectOptions,
 } from './functions';
 import TheHeader from './components/TheHeader.vue';
@@ -18,7 +20,7 @@ const currentPage = ref(normalizePageHash());
 // данные временной шкалы
 const timelineItems = generateTimeLineItems();
 
-const activities = ref(['Coding', 'Reading', 'Training']);
+const activities = ref(generateActivities());
 
 const activitySelectOptions = generateActivitySelectOptions(activities.value);
 
@@ -26,8 +28,12 @@ function goTo(page) {
   currentPage.value = page
 };
 
-function createActivity(activity) {
-  activities.value.push(activity)
+function createActivity(name) {
+  activities.value.push({
+    id: id(),
+    name,
+    secondsToComplete: 0,
+  })
 };
 
 function deleteActivity(activity) {
