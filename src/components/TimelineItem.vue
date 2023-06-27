@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from 'vue';
-import { isTimelineItemValid } from '../validators';
+import { isTimelineItemValid, validateSelectOptions } from '../validators';
 import BaseSelect from './BaseSelect.vue';
 import TimelineHour from './TimelineHour.vue';
 
@@ -9,20 +9,16 @@ defineProps({
     required: true,
     type: Object,
     validator: isTimelineItemValid,
+  },
+  activitySelectOptions: {
+    required: true,
+    type: Array,
+    validator: validateSelectOptions,
   }
 });
 
 
-// каждой активности свой идентификатор
-const options = [
-  { value: 1, label: 'Coding' },
-  { value: 2, label: 'Reading' },
-  { value: 3, label: 'Training' },
-];
-
-// указываем извне какая именно опция селект элемента должна быть выбрана
-// с его помощью можно будет выбрать активность для определенного часа
-const selectedActivityId = ref(1);
+const selectedActivityId = ref(0);
 </script>
 
 <template>
@@ -30,9 +26,9 @@ const selectedActivityId = ref(1);
     <TimelineHour :hour="timelineItem.hour" />
     <!-- передаем опции в качестве внешнего свойства компоненту BaseSelect -->
     <BaseSelect
-      :selected="selectedActivityId"
-      :options="options"
       placeholder="Rest"
+      :selected="selectedActivityId"
+      :options="activitySelectOptions"
       @select="selectedActivityId = $event"
     />
   </li>
