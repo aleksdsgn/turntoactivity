@@ -17,7 +17,7 @@ import TheTimeLine from './pages/TheTimeLine.vue';
 const currentPage = ref(normalizePageHash());
 
 // данные временной шкалы
-const timelineItems = generateTimeLineItems();
+const timelineItems = ref(generateTimeLineItems());
 
 const activities = ref(generateActivities());
 
@@ -32,7 +32,7 @@ function createActivity(activity) {
 };
 
 function deleteActivity(activity) {
-  timelineItems.forEach((timelineItem) => {
+  timelineItems.value.forEach((timelineItem) => {
     if (timelineItem.activityId === activity.id) {
       timelineItem.activityId = null
     }
@@ -42,7 +42,7 @@ function deleteActivity(activity) {
 };
 
 function setTimelineItemActivity({ timelineItem, activity }) {
-  timelineItem.activityId = activity.id
+  timelineItem.activityId = activity?.id || null
 };
 </script>
 
