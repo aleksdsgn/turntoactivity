@@ -11,7 +11,7 @@ import TheHeader from './components/TheHeader.vue';
 import TheNav from './components/TheNav.vue';
 import TheActivities from './pages/TheActivities.vue';
 import TheProgress from './pages/TheProgress.vue';
-import TheTimeLine from './pages/TheTimeLine.vue';
+import TheTimeLine from './pages/TheTimeline.vue';
 
 // определение конкретной страницы для подсветки пункта меню
 const currentPage = ref(normalizePageHash());
@@ -41,8 +41,8 @@ function deleteActivity(activity) {
   activities.value.splice(activities.value.indexOf(activity), 1)
 };
 
-function setTimelineItemActivity({ timelineItem, activity }) {
-  timelineItem.activityId = activity?.id || null
+function setTimelineItemActivity(timelineItem, activity) {
+  timelineItem.activityId = activity.id
 };
 
 function setActivitySecondsToComplete(activity, secondsToComplete) {
