@@ -51,6 +51,6 @@ function findActivityById(id) {
       :options="activitySelectOptions"
       @select="selectActivity"
     />
-    <TimelineStopwatch :seconds="timelineItem.activitySeconds" />
+    <TimelineStopwatch :seconds="timelineItem.activitySeconds" :hour="timelineItem.hour" />
   </li>
 </template>
