@@ -16,10 +16,10 @@ import TheTimeLine from './pages/TheTimeline.vue';
 // определение конкретной страницы для подсветки пункта меню
 const currentPage = ref(normalizePageHash());
 
-// данные временной шкалы
-const timelineItems = ref(generateTimeLineItems());
-
 const activities = ref(generateActivities());
+
+// данные временной шкалы
+const timelineItems = ref(generateTimeLineItems(activities.value));
 
 const activitySelectOptions = computed(() => generateActivitySelectOptions(activities.value));
 
@@ -35,6 +35,7 @@ function deleteActivity(activity) {
   timelineItems.value.forEach((timelineItem) => {
     if (timelineItem.activityId === activity.id) {
       timelineItem.activityId = null
+      timelineItem.activitySeconds = 0
     }
   })
   

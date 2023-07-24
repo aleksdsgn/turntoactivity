@@ -5,7 +5,6 @@ import {
   SECONDS_IN_MINUTE,
   MINUTES_IN_HOUR,
   HOURS_IN_DAY,
-  MIDNIGHT_HOUR
 } from './constants';
 import { isPageValid, isNull } from './validators';
 
@@ -47,18 +46,13 @@ export function id() {
 };
 
 // генерация данных временной шкалы
-export function generateTimeLineItems() {
-  const timelineItems = []
-
-  for (let hour = MIDNIGHT_HOUR; hour < HOURS_IN_DAY; hour++) {
-    timelineItems.push({
-      hour,
-      activityId: null,
-      activitySeconds: 0,
-    })
-  }
-
-  return timelineItems
+export function generateTimeLineItems(activities) {
+  return [...Array(HOURS_IN_DAY).keys()].map((hour) => ({
+    hour,
+    // присваиваем случайным образом идентификаторы активности
+    activityId: hour % 4 === 0 ? null : activities[hour % 2].id,
+    activitySeconds: hour % 4 === 0 ? 0 : (15 * SECONDS_IN_MINUTE * hour) % SECONDS_IN_HOUR
+  }))
 };
 
 export function generateActivitySelectOptions(activities) {
