@@ -21,9 +21,19 @@ const activities = ref(generateActivities());
 // данные временной шкалы
 const timelineItems = ref(generateTimeLineItems(activities.value));
 
+const timeline = ref();
+
 const activitySelectOptions = computed(() => generateActivitySelectOptions(activities.value));
 
 function goTo(page) {
+  if (currentPage.value === PAGE_TIMELINE && page === PAGE_TIMELINE) {
+    timeline.value.scrollToHour()
+  }
+
+  if (page !== PAGE_TIMELINE) {
+    document.body.scrollIntoView()
+  }
+
   currentPage.value = page
 };
 
@@ -61,6 +71,7 @@ function setActivitySecondsToComplete(activity, secondsToComplete) {
       :activities="activities"
       :activity-select-options="activitySelectOptions"
       :current-page="currentPage"
+      ref="timeline"
       @set-timeline-item-activity="setTimelineItemActivity"
     />
     <TheActivities
