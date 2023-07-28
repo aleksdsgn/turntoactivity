@@ -45,13 +45,24 @@ export function id() {
   return Date.now().toString(36) + Math.random().toString(35).substring(2)
 };
 
+export function getTotalActivitySeconds(activity, timelineItems) {
+  return timelineItems
+    // получаем только те объекты timelineItems для которых была выбрана нужная нам активность
+    .filter((timelineItem) => timelineItem.activityId === activity.id)
+    .reduce((totalSeconds, timelineItem) => Math.round(timelineItem.activitySeconds + totalSeconds), 0)
+};
+
 // генерация данных временной шкалы
 export function generateTimeLineItems(activities) {
   return [...Array(HOURS_IN_DAY).keys()].map((hour) => ({
     hour,
     // присваиваем случайным образом идентификаторы активности
-    activityId: hour % 4 === 0 ? null : activities[hour % 2].id,
-    activitySeconds: hour % 4 === 0 ? 0 : (15 * SECONDS_IN_MINUTE * hour) % SECONDS_IN_HOUR
+    // activityId: hour % 4 === 0 ? null : activities[hour % 2].id,
+    // activitySeconds: hour % 4 === 0 ? 0 : (15 * SECONDS_IN_MINUTE * hour) % SECONDS_IN_HOUR
+    
+    // присваиваем для первых 5 часов
+    activityId: [0, 1, 2, 3, 4].includes(hour) ? activities[hour % 3].id : null,
+    activitySeconds: [0, 1, 2, 3, 4].includes(hour) ? hour * 600 : 0
   }))
 };
 
