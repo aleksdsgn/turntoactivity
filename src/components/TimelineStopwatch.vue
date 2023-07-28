@@ -15,14 +15,18 @@ const props = defineProps({
   seconds: {
     default: 0,
     type: Number,
-    validator: isNumber
+    validator: isNumber,
   },
   hour: {
     required: true,
     type: Number,
-    validator: isHourValid
+    validator: isHourValid,
   },
 
+});
+
+const emit = defineEmits({
+  updateSeconds: isNumber,
 });
 
 const seconds = ref(props.seconds);
@@ -32,6 +36,8 @@ const isStartButtonDisabled = props.hour !== new Date().getHours();
 
 function start() {
   isRunning.value = setInterval(() => {
+    emit('updateSeconds', 1)
+    
     seconds.value++
   }, MILLISECONDS_IN_SECOND)
 };
@@ -44,6 +50,8 @@ function stop() {
 
 function reset() {
   stop()
+
+  emit('updateSeconds', -seconds.value)
 
   seconds.value = 0
 };
