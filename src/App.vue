@@ -6,6 +6,7 @@ import {
   generateTimeLineItems,
   generateActivities,
   generateActivitySelectOptions,
+  generatePeriodSelectOptions,
 } from './functions';
 import TheHeader from './components/TheHeader.vue';
 import TheNav from './components/TheNav.vue';
@@ -66,6 +67,7 @@ function setActivitySecondsToComplete(activity, secondsToComplete) {
 
 provide('updateTimelineItemActivitySeconds', updateTimelineItemActivitySeconds);
 provide('activitySelectOptions', activitySelectOptions.value);
+provide('periodSelectOptions', generatePeriodSelectOptions());
 provide('timelineItems', timelineItems.value);
 provide('activities', activities.value);
 </script>
