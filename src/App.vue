@@ -2,41 +2,24 @@
 import { ref, computed, provide } from 'vue';
 import { PAGE_TIMELINE, PAGE_ACTIVITIES, PAGE_PROGRESS } from './constants';
 import {
-  normalizePageHash,
   generateTimeLineItems,
   generateActivities,
   generateActivitySelectOptions,
   generatePeriodSelectOptions,
 } from './functions';
+import { currentPage, navigate, timelineRef } from './router';
 import TheHeader from './components/TheHeader.vue';
 import TheNav from './components/TheNav.vue';
 import TheActivities from './pages/TheActivities.vue';
 import TheProgress from './pages/TheProgress.vue';
 import TheTimeLine from './pages/TheTimeline.vue';
 
-// определение конкретной страницы для подсветки пункта меню
-const currentPage = ref(normalizePageHash());
-
 const activities = ref(generateActivities());
 
 // данные временной шкалы
 const timelineItems = ref(generateTimeLineItems(activities.value));
 
-const timeline = ref();
-
 const activitySelectOptions = computed(() => generateActivitySelectOptions(activities.value));
-
-function goTo(page) {
-  if (currentPage.value === PAGE_TIMELINE && page === PAGE_TIMELINE) {
-    timeline.value.scrollToHour()
-  }
-
-  if (page !== PAGE_TIMELINE) {
-    document.body.scrollIntoView()
-  }
-
-  currentPage.value = page
-};
 
 function createActivity(activity) {
   activities.value.push(activity)
@@ -76,18 +59,18 @@ provide('timelineItems', timelineItems.value);
 </script>
 
 <template>
-  <TheHeader @navigate="goTo($event)" />
+  <TheHeader @navigate="navigate" />
 
   <main class="flex flex-grow flex-col">
     <TheTimeLine
       v-show="currentPage === PAGE_TIMELINE"
       :timeline-items="timelineItems"
       :current-page="currentPage"
-      ref="timeline"
+      ref="timelineRef"
     />
     <TheActivities v-show="currentPage === PAGE_ACTIVITIES" :activities="activities" />
     <TheProgress v-show="currentPage === PAGE_PROGRESS" />
   </main>
 
-  <TheNav :current-page="currentPage" @navigate="goTo($event)" />
+  <TheNav :current-page="currentPage" @navigate="navigate" />
 </template>

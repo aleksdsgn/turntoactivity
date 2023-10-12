@@ -18,6 +18,7 @@ export function formatSeconds(seconds) {
   return utc.substring(utc.indexOf(':') - 2, utc.indexOf(':') + 6)
 };
 
+// при загрузке страницы считывает и валидирует хэш страницы
 export function normalizePageHash() {
   const page = window.location.hash.slice(1)
 
